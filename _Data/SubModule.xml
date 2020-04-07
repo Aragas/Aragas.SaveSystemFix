@@ -1,0 +1,26 @@
+﻿<Module>
+  <Name value="Save Missing Module Fix" />
+  <Id value="Aragas.SaveMissingModuleFix" />
+  <Version value="v1.0.0" />
+  <SingleplayerModule value="true" />
+  <MultiplayerModule value="false" />
+  <Official value="false" />
+  <DependedModules>
+    <DependedModule Id="Native" />
+    <DependedModule Id="SandBoxCore" />
+    <DependedModule Id="Sandbox" />
+    <DependedModule Id="StoryMode" />
+    <DependedModule Id="CustomBattle"/>
+  </DependedModules>
+  <SubModules>
+    <SubModule>
+      <Name value="Aragas.SaveMissingModuleFix" />
+      <DLLName value="Aragas.SaveMissingModuleFix.dll" />
+      <SubModuleClassType value="Aragas.MountAndBlade.SaveMissingModuleFixSubModule" />
+      <Tags>
+        <Tag key="DedicatedServerType" value="none" />
+        <Tag key="IsNoRenderModeElement" value="false" />
+      </Tags>
+    </SubModule>
+  </SubModules>
+</Module>
