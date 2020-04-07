@@ -4,7 +4,7 @@ using ReflectionMagic;
 
 using System;
 using System.Reflection;
-
+using System.Threading.Tasks;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
@@ -25,9 +25,10 @@ namespace Aragas
 		{
 			var @dynamic = __instance.AsDynamic();
 
-			if ((bool) DynamicHelper.Unwrap(@dynamic._isSaving))
+			if ((bool)DynamicHelper.Unwrap(@dynamic._isSaving))
 				return;
 
+			Task.Delay(1000).Wait();
 			if (LoadContextPatch1.PostfixUsed)
 			{
 				InformationManager.ShowInquiry(

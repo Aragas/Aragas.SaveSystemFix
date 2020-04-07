@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
-
 using System;
 using System.Reflection;
-
 using TaleWorlds.SaveSystem.Load;
 
 namespace Aragas
@@ -13,7 +11,7 @@ namespace Aragas
 	/// so we are bypassing it.
 	/// Basically our new Inquiry will decide if the save should be loaded by the game, not vanilla's Module mismatch.
 	/// </summary>
-    [HarmonyPatch]
+	[HarmonyPatch]
 	public class SavedGameVMPatch2
 	{
 		public static bool UserRequestedSaveLoading = false;
