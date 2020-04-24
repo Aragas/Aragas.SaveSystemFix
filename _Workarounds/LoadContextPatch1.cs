@@ -154,8 +154,14 @@ namespace Aragas
 						}
 						// PATCH
 #endif
-
-						objectLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						try
+						{
+							objectLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						}
+						catch (System.MissingMethodException) // bmountney: If method with new name doesn't exist, try the old name for e1.1.2
+						{
+							objectLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						}
 						objectLoadData.FillCreatedObject();
 						objectLoadData.Read();
 						objectLoadData.FillObject();
@@ -181,7 +187,14 @@ namespace Aragas
 						// PATCH
 #endif
 
-						containerLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						try
+						{
+							containerLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						}
+						catch (System.MissingMethodException) // bmountney: If method with new name doesn't exist, try the old name for e1.1.2
+						{
+							containerLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						}
 						containerLoadData.FillCreatedObject();
 						containerLoadData.Read();
 						ContainerLoadDataPatch1.Prefix(DynamicHelper.Unwrap(containerLoadData));
