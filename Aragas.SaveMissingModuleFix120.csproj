@@ -7,6 +7,7 @@
     <RootNamespace>Aragas</RootNamespace>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GameFolder>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
+    <AssemblyName>Aragas.SaveMissingModuleFix120</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,7 +53,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(GameFolder)\Modules\$(ProjectName)&quot; mkdir &quot;$(GameFolder)\Modules\$(ProjectName)&quot;" />
+    <Exec Command="if not exist &quot;$(GameFolder)\Modules\$(AssemblyName)&quot; mkdir &quot;$(GameFolder)\Modules\$(AssemblyName)&quot;" />
 
     <Copy SourceFiles="@(Libraries)" DestinationFiles="@(Libraries->'$(GameFolder)\Modules\$(ProjectName)\bin\Win64_Shipping_Client\%(RecursiveDir)%(Filename)%(Extension)')" />
     
