@@ -155,7 +155,7 @@ namespace Aragas
 						// PATCH
 #endif
 
-						objectLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						objectLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
 						objectLoadData.FillCreatedObject();
 						objectLoadData.Read();
 						objectLoadData.FillObject();
@@ -181,7 +181,7 @@ namespace Aragas
 						// PATCH
 #endif
 
-						containerLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						containerLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
 						containerLoadData.FillCreatedObject();
 						containerLoadData.Read();
 						ContainerLoadDataPatch1.Prefix(DynamicHelper.Unwrap(containerLoadData));
