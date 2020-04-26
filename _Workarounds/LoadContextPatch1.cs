@@ -154,8 +154,14 @@ namespace Aragas
 						}
 						// PATCH
 #endif
-
-						objectLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						try
+						{
+							objectLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						}
+						catch (System.MissingMethodException) // bmountney: If method with new name doesn't exist, try the old name for e1.1.2
+						{
+							objectLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						}
 						objectLoadData.FillCreatedObject();
 						objectLoadData.Read();
 						objectLoadData.FillObject();
@@ -181,7 +187,14 @@ namespace Aragas
 						// PATCH
 #endif
 
-						containerLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						try
+						{
+							containerLoadData.InitializeReaders(DynamicHelper.Unwrap(childFolder)); // bmountney: Added "z" to correct method name
+						}
+						catch (System.MissingMethodException) // bmountney: If method with new name doesn't exist, try the old name for e1.1.2
+						{
+							containerLoadData.InitialieReaders(DynamicHelper.Unwrap(childFolder));
+						}
 						containerLoadData.FillCreatedObject();
 						containerLoadData.Read();
 						ContainerLoadDataPatch1.Prefix(DynamicHelper.Unwrap(containerLoadData));
@@ -189,21 +202,32 @@ namespace Aragas
 				}
 				using (new PerformanceTestBlock("LoadContext::Callbacks"))
 				{
-					foreach (object objectHeaderLoadData2 in @dynamic._objectHeaderLoadDatas)
+					try // bmountney: Added to deal with System.Reflection.TargetInvocationException in beta e1.3.0 of the game after removing some mods
 					{
-						var objectHeaderLoadData2Dynamic = objectHeaderLoadData2.AsDynamic();
-						// PATCH
-						if (objectHeaderLoadData2Dynamic.TypeDefinition == null)
-							continue;
-						// PATCH
-
-						foreach (MethodInfo methodInfo in objectHeaderLoadData2Dynamic.TypeDefinition.InitializationCallbacks)
+						foreach (object objectHeaderLoadData2 in @dynamic._objectHeaderLoadDatas)
 						{
-							methodInfo.Invoke(DynamicHelper.Unwrap(objectHeaderLoadData2Dynamic.Target), new object[]
+							var objectHeaderLoadData2Dynamic = objectHeaderLoadData2.AsDynamic();
+							// PATCH
+							if (objectHeaderLoadData2Dynamic.TypeDefinition == null)
+								continue;
+							// PATCH
+
+							foreach (MethodInfo methodInfo in objectHeaderLoadData2Dynamic.TypeDefinition.InitializationCallbacks)
 							{
+								// bmountney: In e1.3.0 this method was throwing a System.Reflection.TargetInvocationExecption at some point
+								//		during the loop, and once it started happening it seemed to repeat indefinitely, so attempting to catch
+								//		it inside the either the inner or outer loop seemed to result in an infinite loop, or at least it was
+								//		taking longer than I was willing to wait.  Jumping out of the loops on the first instance of the exception
+								//		seemed to cause no issues in my tests after removing the "Tournaments XPanded-for-BL1.3.0" mod.
+								methodInfo.Invoke(DynamicHelper.Unwrap(objectHeaderLoadData2Dynamic.Target), new object[]
+								{
 								loadData.MetaData
-							});
+								});
+							}
 						}
+					}
+					catch (System.Reflection.TargetInvocationException)
+					{
 					}
 				}
 
