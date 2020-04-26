@@ -202,7 +202,7 @@ namespace Aragas
 				}
 				using (new PerformanceTestBlock("LoadContext::Callbacks"))
 				{
-					try
+					try // bmountney: Added to deal with System.Reflection.TargetInvocationException in beta e1.3.0 of the game after removing some mods
 					{
 						foreach (object objectHeaderLoadData2 in @dynamic._objectHeaderLoadDatas)
 						{
@@ -215,7 +215,7 @@ namespace Aragas
 							foreach (MethodInfo methodInfo in objectHeaderLoadData2Dynamic.TypeDefinition.InitializationCallbacks)
 							{
 								// bmountney: In e1.3.0 this method was throwing a System.Reflection.TargetInvocationExecption at some point
-								//		during the loop and once it started happening it seemed to repeat indefinitely, and attempting to catch
+								//		during the loop, and once it started happening it seemed to repeat indefinitely, so attempting to catch
 								//		it inside the either the inner or outer loop seemed to result in an infinite loop, or at least it was
 								//		taking longer than I was willing to wait.  Jumping out of the loops on the first instance of the exception
 								//		seemed to cause no issues in my tests after removing the "Tournaments XPanded-for-BL1.3.0" mod.

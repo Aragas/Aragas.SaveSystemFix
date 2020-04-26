@@ -43,16 +43,18 @@ namespace Aragas
 								}
 								object valueData = DynamicHelper.Unwrap(value.GetDataToUse());
 								// PATCH
-								if (!IsNull(valueData))
+								if (IsNull(valueData))
+									continue;
+								// PATCH
+
+								try // bmountney: Added try...catch
 								{
-									try // bmountney: Added try...catch
-									{
-										list.Add(valueData);
-									}
-									catch (System.ArgumentException)
-									{
-									}
+									list.Add(valueData);
 								}
+								catch (System.ArgumentException)
+								{
+								}
+
 							}
 							break;
 						}

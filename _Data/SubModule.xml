@@ -1,7 +1,7 @@
 ﻿<Module>
   <Name value="Alt Save Missing Module Fix" />
   <Id value="Aragas.AltSaveMissingModuleFix" />
-  <Version value="v1.3.0.0" />
+  <Version value="v1.3.0.1" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
