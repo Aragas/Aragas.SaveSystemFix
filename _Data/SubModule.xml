@@ -1,7 +1,7 @@
 ﻿<Module>
-  <Name value="e1.2.0 Save Missing Module Fix" />
-  <Id value="Aragas.SaveMissingModuleFix120" />
-  <Version value="v1.2.0.1" />
+  <Name value="Alt Save Missing Module Fix" />
+  <Id value="Aragas.AltSaveMissingModuleFix" />
+  <Version value="v1.3.0.0" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
@@ -14,8 +14,8 @@
   </DependedModules>
   <SubModules>
     <SubModule>
-      <Name value="Aragas.SaveMissingModuleFix120" />
-      <DLLName value="Aragas.SaveMissingModuleFix120.dll" />
+      <Name value="Aragas.AltSaveMissingModuleFix" />
+      <DLLName value="Aragas.AltSaveMissingModuleFix.dll" />
       <SubModuleClassType value="Aragas.MountAndBlade.SaveMissingModuleFixSubModule" />
       <Tags>
         <Tag key="DedicatedServerType" value="none" />

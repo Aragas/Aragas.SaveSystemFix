@@ -83,29 +83,35 @@ namespace Aragas
 					case 3: // Array
 						{
 							var array = (Array) DynamicHelper.Unwrap(@dynamic.Target);
-							var value = ((IList) DynamicHelper.Unwrap(@dynamic._values))[i].AsDynamic();
-							if (Convert.ToInt32(DynamicHelper.Unwrap(value.SavedMemberType)) == 4) // CustomStruct
+							if (!IsNull(array)) // bmountney: Added test for NULL (I didn't encounter a save that needed this test, but added it to be safe)
 							{
-								var objectLoadData = ((IDictionary) DynamicHelper.Unwrap(@dynamic._childStructs))[(int) DynamicHelper.Unwrap(value.Data)].AsDynamic();
-								value.SetCustomStructData(DynamicHelper.Unwrap(objectLoadData.Target));
+								var value = ((IList) DynamicHelper.Unwrap(@dynamic._values))[i].AsDynamic();
+								if (Convert.ToInt32(DynamicHelper.Unwrap(value.SavedMemberType)) == 4) // CustomStruct
+								{
+									var objectLoadData = ((IDictionary) DynamicHelper.Unwrap(@dynamic._childStructs))[(int) DynamicHelper.Unwrap(value.Data)].AsDynamic();
+									value.SetCustomStructData(DynamicHelper.Unwrap(objectLoadData.Target));
+								}
+								var valueData = DynamicHelper.Unwrap(value.GetDataToUse());
+								if (!IsNull(valueData))
+									array.SetValue(valueData, i);
 							}
-							var valueData = DynamicHelper.Unwrap(value.GetDataToUse());
-							if (!IsNull(valueData))
-								array.SetValue(valueData, i);
 							break;
 						}
 					case 4: // Queue
 						{
 							var collection = (ICollection) DynamicHelper.Unwrap(@dynamic.Target);
-							var value = ((IList) DynamicHelper.Unwrap(@dynamic._values))[i].AsDynamic();
-							if (Convert.ToInt32(DynamicHelper.Unwrap(value.SavedMemberType)) == 4) // CustomStruct
+							if (!IsNull(collection)) // bmountney: Added test for NULL (I didn't encounter a save that needed this test, but added it to be safe)
 							{
-								var objectLoadData = ((IDictionary) DynamicHelper.Unwrap(@dynamic._childStructs))[(int) DynamicHelper.Unwrap(value.Data)].AsDynamic();
-								value.SetCustomStructData(DynamicHelper.Unwrap(objectLoadData.Target));
+								var value = ((IList) DynamicHelper.Unwrap(@dynamic._values))[i].AsDynamic();
+								if (Convert.ToInt32(DynamicHelper.Unwrap(value.SavedMemberType)) == 4) // CustomStruct
+								{
+									var objectLoadData = ((IDictionary) DynamicHelper.Unwrap(@dynamic._childStructs))[(int) DynamicHelper.Unwrap(value.Data)].AsDynamic();
+									value.SetCustomStructData(DynamicHelper.Unwrap(objectLoadData.Target));
+								}
+								var valueData = DynamicHelper.Unwrap(value.GetDataToUse());
+								if (!IsNull(valueData))
+									collection.GetType().GetMethod("Enqueue").Invoke(collection, new object[] { valueData });
 							}
-							var valueData = DynamicHelper.Unwrap(value.GetDataToUse());
-							if (!IsNull(valueData))
-								collection.GetType().GetMethod("Enqueue").Invoke(collection, new object[] { valueData });
 							break;
 						}
 				}

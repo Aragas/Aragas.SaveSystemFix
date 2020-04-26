@@ -7,14 +7,14 @@
     <RootNamespace>Aragas</RootNamespace>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GameFolder>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
-    <AssemblyName>Aragas.SaveMissingModuleFix120</AssemblyName>
+    <AssemblyName>Aragas.AltSaveMissingModuleFix</AssemblyName>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>$(GameFolder)\Modules\Aragas.SaveMissingModuleFix120\bin\Win64_Shipping_Client\</OutputPath>
+    <OutputPath>$(GameFolder)\Modules\$(AssemblyName)\bin\Win64_Shipping_Client\</OutputPath>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
@@ -23,7 +23,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <OutputPath>$(GameFolder)\Modules\Aragas.SaveMissingModuleFix120\bin\Win64_Shipping_Client\</OutputPath>
+    <OutputPath>$(GameFolder)\Modules\$(AssemblyName)\bin\Win64_Shipping_Client\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
